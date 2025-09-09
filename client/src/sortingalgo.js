@@ -1,18 +1,23 @@
-// sortAlgorithms.js
-
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // -------------------- Selection Sort --------------------
-async function selectionSortWithSteps(arr, setDataConverted, delay = 100) {
+async function selectionSortWithSteps(
+  arr,
+  setDataConverted,
+  delay = 100,
+  playRef
+) {
   const arrayCopy = [...arr];
   const n = arrayCopy.length;
 
   for (let i = 0; i < n - 1; i++) {
+    if (!playRef.current) return;
     let minIndex = i;
 
     for (let j = i + 1; j < n; j++) {
+      if (!playRef.current) return;
       if (arrayCopy[j] < arrayCopy[minIndex]) minIndex = j;
     }
 
@@ -26,12 +31,19 @@ async function selectionSortWithSteps(arr, setDataConverted, delay = 100) {
 }
 
 // -------------------- Bubble Sort --------------------
-async function bubbleSortWithSteps(arr, setDataConverted, delay = 100) {
+async function bubbleSortWithSteps(
+  arr,
+  setDataConverted,
+  delay = 100,
+  playRef
+) {
   const arrayCopy = [...arr];
   const n = arrayCopy.length;
 
   for (let i = 0; i < n - 1; i++) {
+    if (!playRef.current) return;
     for (let j = 0; j < n - i - 1; j++) {
+      if (!playRef.current) return;
       if (arrayCopy[j] > arrayCopy[j + 1]) {
         [arrayCopy[j], arrayCopy[j + 1]] = [arrayCopy[j + 1], arrayCopy[j]];
         setDataConverted([...arrayCopy]);
@@ -42,15 +54,22 @@ async function bubbleSortWithSteps(arr, setDataConverted, delay = 100) {
 }
 
 // -------------------- Insertion Sort --------------------
-async function insertionSortWithSteps(arr, setDataConverted, delay = 100) {
+async function insertionSortWithSteps(
+  arr,
+  setDataConverted,
+  delay = 100,
+  playRef
+) {
   const arrayCopy = [...arr];
   const n = arrayCopy.length;
 
   for (let i = 1; i < n; i++) {
+    if (!playRef.current) return;
     let key = arrayCopy[i];
     let j = i - 1;
 
     while (j >= 0 && arrayCopy[j] > key) {
+      if (!playRef.current) return;
       arrayCopy[j + 1] = arrayCopy[j];
       j--;
       setDataConverted([...arrayCopy]);
@@ -64,7 +83,7 @@ async function insertionSortWithSteps(arr, setDataConverted, delay = 100) {
 }
 
 // -------------------- Merge Sort --------------------
-async function mergeSortWithSteps(arr, setDataConverted, delay = 100) {
+async function mergeSortWithSteps(arr, setDataConverted, delay = 100, playRef) {
   const arrayCopy = [...arr];
 
   async function mergeSort(array, start = 0) {
@@ -75,16 +94,25 @@ async function mergeSortWithSteps(arr, setDataConverted, delay = 100) {
     const right = await mergeSort(array.slice(mid), start + mid);
 
     let merged = [];
-    let i = 0, j = 0;
+    let i = 0,
+      j = 0;
 
     while (i < left.length && j < right.length) {
+      if (!playRef.current) return;
       if (left[i] <= right[j]) merged.push(left[i++]);
       else merged.push(right[j++]);
     }
-    while (i < left.length) merged.push(left[i++]);
-    while (j < right.length) merged.push(right[j++]);
+    while (i < left.length) {
+      if (!playRef.current) return;
+      merged.push(left[i++]);
+    }
+    while (j < right.length) {
+      if (!playRef.current) return;
+      merged.push(right[j++]);
+    }
 
     for (let k = 0; k < merged.length; k++) {
+      if (!playRef.current) return;
       arrayCopy[start + k] = merged[k];
     }
     setDataConverted([...arrayCopy]);
@@ -97,10 +125,11 @@ async function mergeSortWithSteps(arr, setDataConverted, delay = 100) {
 }
 
 // -------------------- Quick Sort --------------------
-async function quickSortWithSteps(arr, setDataConverted, delay = 100) {
+async function quickSortWithSteps(arr, setDataConverted, delay = 100, playRef) {
   const arrayCopy = [...arr];
 
   async function quickSort(array, low = 0, high = array.length - 1) {
+    if (!playRef.current) return;
     if (low < high) {
       const pi = await partition(array, low, high);
       await quickSort(array, low, pi - 1);
@@ -113,6 +142,7 @@ async function quickSortWithSteps(arr, setDataConverted, delay = 100) {
     let i = low - 1;
 
     for (let j = low; j < high; j++) {
+      if (!playRef.current) return;
       if (array[j] < pivot) {
         i++;
         [array[i], array[j]] = [array[j], array[i]];
@@ -132,7 +162,7 @@ async function quickSortWithSteps(arr, setDataConverted, delay = 100) {
 }
 
 // -------------------- Heap Sort --------------------
-async function heapSortWithSteps(arr, setDataConverted, delay = 100) {
+async function heapSortWithSteps(arr, setDataConverted, delay = 100, playRef) {
   const arrayCopy = [...arr];
   const n = arrayCopy.length;
 
@@ -153,10 +183,12 @@ async function heapSortWithSteps(arr, setDataConverted, delay = 100) {
   }
 
   for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    if (!playRef.current) return;
     await heapify(arrayCopy, n, i);
   }
 
   for (let i = n - 1; i >= 0; i--) {
+    if (!playRef.current) return;
     [arrayCopy[0], arrayCopy[i]] = [arrayCopy[i], arrayCopy[0]];
     setDataConverted([...arrayCopy]);
     await sleep(delay);
@@ -164,12 +196,11 @@ async function heapSortWithSteps(arr, setDataConverted, delay = 100) {
   }
 }
 
-// -------------------- Export All --------------------
 export {
   selectionSortWithSteps,
   bubbleSortWithSteps,
   insertionSortWithSteps,
   mergeSortWithSteps,
   quickSortWithSteps,
-  heapSortWithSteps
+  heapSortWithSteps,
 };

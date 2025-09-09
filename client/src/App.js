@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Navbar from "./components/Navbar";
 import SortingMatch from "./components/SortingMatch";
 import { selectionSortWithSteps,
@@ -9,65 +9,40 @@ import { selectionSortWithSteps,
   heapSortWithSteps } from "./sortingalgo";
 
 function App() {
+  const playRef = useRef(false);
   const [title, setTitle] = useState("Sort");
   const [data, setdata] = useState("");
   const [dataConverted, setDataConverted] = useState([]);
+  const [play, setPlay] = useState(true);
 
   function handledataChange(event){
     setdata(event.target.value);
   }
   async function handleRun(){
-    setDataConverted(
-  data
+    setPlay(!play);
+    playRef.current = !playRef.current;
+    const valueArray = data
     .split(",") 
     .map(num => Number(num.trim())) 
-    .filter(num => !isNaN(num))  
-);
+    .filter(num => !isNaN(num));
+    setDataConverted(valueArray);
 if(title==="Selection Sort"){
-  await selectionSortWithSteps(data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted);
+  await selectionSortWithSteps(valueArray,setDataConverted,50, playRef);
 }
 else if(title==="Bubble Sort"){
- await bubbleSortWithSteps(
-  data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted, 10
- )
+ await bubbleSortWithSteps(valueArray,setDataConverted, 10, playRef);
 }
 else if(title==="Insertion Sort"){
- await insertionSortWithSteps(
-  data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted, 10
- )
+ await insertionSortWithSteps(valueArray,setDataConverted, 10, playRef);
 }
 else if(title==="Merge Sort"){
- await mergeSortWithSteps(
-  data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted
- )
+ await mergeSortWithSteps(valueArray,setDataConverted, 50, playRef);
 }
 else if(title==="Quick Sort"){
- await quickSortWithSteps(
-  data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted
- )
+ await quickSortWithSteps(valueArray,setDataConverted, 50, playRef);
 }
 else if(title==="Heap Sort"){
- await heapSortWithSteps(
-  data
-      .split(",") 
-      .map(num => Number(num.trim())) 
-      .filter(num => !isNaN(num)),setDataConverted
- )
+ await heapSortWithSteps(valueArray,setDataConverted, 50, playRef);
 }
   }
 
@@ -100,8 +75,8 @@ else if(title==="Heap Sort"){
               setdata("");
               setDataConverted([]);
               }}>Clear</button>
-            <button className={`btn btn-primary fw-semibold ${title==="Sort" || data===""?"disabled":""}`} onClick={handleRun}>
-              Run {title}
+            <button className={`btn btn-${play?"primary":"danger"} fw-semibold ${title==="Sort" || data===""?"disabled":""}`} onClick={handleRun}>
+              {play?"PLAY":"STOP"} {title}
             </button>
           </div>
         </div>
