@@ -31,7 +31,7 @@ Currently supports:
 
 ---
 
-## 🛠Tech Stack
+## Tech Stack
 - **React.js** (Frontend framework)  
 - **Chart.js** with `react-chartjs-2` (for visualizations)  
 - **Bootstrap** (styling)  
@@ -43,7 +43,7 @@ Currently supports:
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/sorting-visualizer.git
+git clone https://github.com/kanishq-9/sorting-visuals.git
 cd sorting-visualizer
 
 # Install dependencies
