@@ -44,7 +44,7 @@ Currently supports:
 ```bash
 # Clone the repo
 git clone https://github.com/kanishq-9/sorting-visuals.git
-cd sorting-visualizer
+cd client
 
 # Install dependencies
 npm install
