@@ -18,7 +18,7 @@ Currently supports:
 ---
 
 ## Preview
-![Sorting Visualizer Demo](demo.gif)
+![Sorting Visualizer Demo](demo.mp4)
 
 ---
 
