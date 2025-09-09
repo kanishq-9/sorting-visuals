@@ -1,4 +1,4 @@
-# Sorting Visualizer 🎨📊
+# Sorting Visualizer 📊
 
 A beautiful **React + Chart.js** application to visualize how different sorting algorithms work step by step.  
 Currently supports:  
@@ -12,17 +12,17 @@ Currently supports:
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 👉 [Try it here](https://sorting-visuals-kappa.vercel.app/)
 
 ---
 
-## 📸 Preview
+## Preview
 ![Sorting Visualizer Demo](demo.gif)
 
 ---
 
-## ✨ Features
+## Features
 - Interactive **bar chart visualization** of sorting algorithms  
 - **Step-by-step updates** (see how elements change each iteration)  
 - Supports **play / stop control** during execution  
@@ -31,7 +31,7 @@ Currently supports:
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠Tech Stack
 - **React.js** (Frontend framework)  
 - **Chart.js** with `react-chartjs-2` (for visualizations)  
 - **Bootstrap** (styling)  
@@ -39,7 +39,7 @@ Currently supports:
 
 ---
 
-## ⚡ How to Run Locally
+## How to Run Locally
 
 ```bash
 # Clone the repo
@@ -51,3 +51,4 @@ npm install
 
 # Start the development server
 npm start
+```
